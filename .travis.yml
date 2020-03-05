@@ -4,6 +4,7 @@ jdk:
 before_install:
  - cd ./monitor-truck-api
 deploy:
+ skip_cleanup: true
  provider: heroku
  api-key: 
   secure: $HEROKU_API_KEY
