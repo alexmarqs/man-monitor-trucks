@@ -1,0 +1,42 @@
+version: "3.6"
+services:
+  monitor-truck-api:
+    build:
+      context: ./monitor-truck-api/
+      dockerfile: Dockerfile-dev
+    container_name: monitor_truck_api
+    environment:
+      DB_USER: devuser
+      DB_PWD: devuser
+      DB_NAME: monitortrucksDB
+      DB_HOST: mongodb
+      DB_PORT: 27017
+      CORS_ORIGINS: '*'
+    ports:
+      - 8080:8080
+      - 5005:5005
+    depends_on:
+      - mongo-database
+  mongo-database:
+    image: mongo
+    container_name: mongodb
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root 
+      MONGO_INITDB_ROOT_PASSWORD: root 
+      MONGO_INITDB_DATABASE: monitortrucksDB
+    volumes: 
+      - ./scripts/:/docker-entrypoint-initdb.d/
+      - ./data:/data/db
+    ports:
+      - 27017:27017
+  monitor-truck-client:
+    build:
+      context: ./monitor-truck-client
+      dockerfile: Dockerfile-dev
+    container_name: monitor_truck_client
+    volumes: 
+      - ./monitor-truck-client/:/frontend   
+    ports:
+      - 3000:3000
+    depends_on:
+      - monitor-truck-api

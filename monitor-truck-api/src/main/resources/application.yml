@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${DB_USER}:${DB_PWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      auto-index-creation: true
+
+cors:
+  allowed-origins: ${CORS_ORIGINS}

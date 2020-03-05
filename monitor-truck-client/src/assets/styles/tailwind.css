@@ -1,0 +1,71 @@
+@tailwind base;
+
+input:focus, button:focus {
+  @apply outline-none;
+}
+
+@tailwind components;
+
+.input-field {
+  @apply appearance-none block border-gray-600 border py-2 pl-2 pr-8 text-gray-700 leading-tight;
+}
+  
+.btn-field {
+  @apply bg-teal-500 block text-white font-bold py-2 px-3;
+}
+
+.label-field {
+  @apply block uppercase tracking-wide text-gray-600 text-xs font-bold mb-1;
+}
+ 
+.btn-field:hover {
+  @apply bg-teal-600;
+}
+
+@screen md {
+  .form-item {
+    @apply pr-3;
+  }
+}
+
+.form-search {
+  @apply z-1 m-4 absolute bg-white shadow-md px-8 pt-6 pb-6;
+}
+
+.invalid-search {
+  @apply pt-2 text-red-500 text-xs;
+}
+
+.dropdown-container {
+  @apply relative cursor-pointer;
+}
+
+.dropdown-header {
+  @apply flex justify-between border-gray-600 border py-2 pl-2 pr-2 text-gray-500 leading-tight items-center;
+}
+
+.dropdown-list {
+  @apply z-10 shadow-lg w-full bg-white absolute right-0 mt-2;
+}
+
+.dropdown-item {
+  @apply px-4 py-2 text-sm leading-5;
+}
+
+.dropdown-item:hover {
+  @apply text-teal-500;
+}
+
+.notification {
+  @apply z-1 mx-20 my-10 absolute bottom-0 right-0;
+}
+
+.notification-box {
+  @apply bg-red-100 border border-red-400 text-red-700 px-2 py-3 rounded relative;
+}
+
+.notification-close {
+  @apply absolute top-0 right-0;
+}
+
+@tailwind utilities;
