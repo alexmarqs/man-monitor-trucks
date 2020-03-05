@@ -8,9 +8,6 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "google-maps-react": "^2.0.2",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.7",
-    "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.4.0"
@@ -28,16 +25,6 @@
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/styles/tailwind.css -o src/assets/styles/main.css --env production",
     "watch:css": "postcss --watch src/assets/styles/tailwind.css -o src/assets/styles/main.css"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json}": [
-      "prettier --write"
-    ]
   },
   "eslintConfig": {
     "extends": "react-app"
