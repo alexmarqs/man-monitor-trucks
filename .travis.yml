@@ -1,11 +1,11 @@
 language: java
 jdk:
- - oraclejdk11
+- oraclejdk11
 before_install:
- - cd ./monitor-truck-api
+- cd ./monitor-truck-api
 deploy:
- skip_cleanup: true
- provider: heroku
- api-key: 
-  secure: $HEROKU_API_KEY
- app: $HEROKU_APP_NAME
+  skip_cleanup: true
+  provider: heroku
+  app: monitor-truck-api
+  api_key:
+    secure: LVvYSSjXMg1qnN3JHmy6BsrV3c2vZ70yQlAKSyY8deOnLNVXTOsnnKgbXb5IQgU1YqkekOEj7v+sUJu9lzPrU+j2pOV8MNhEfE/5w0tIqjUDFEdqxbPIKDQ7Ef1h1apOiGAsysYy7Ize7XhBrAxKiGFfEtD6F5MSYiFCdTMzcMPLzs37QiP8W3AGDWqbQNtbvDiRtZzD7t4MY7OOgh48vcSX9XZQMvHaKKyKcbpX8hysuFqPaqmL9ToBs8KouBTa+Oa1279MfizzOnLep+zr7KqT/drINv4NfRZo1HO1S5dZKTx4nXeCpIsZLYpVYXSsyWigQp0OmuZuJ3lK6kHEZ3w++fvIGC47+PX06dR+Km0G1qCuGiGtgBE8pZYnWoxwbmwOttZK0ZU2bHag/WNfNAdte3bZePJv1WfyojSebMGNQusci2vhmPD0yQX1DSyECa8LSOtSc5gKbCZTZYUsHYCWztPiv3d4NNKoV2P0LLoGykNtSwnlABG3nU+2AAPZpP+DWAvX+SQRkkNiN6u8h/JQSZRyvqIlN39qHlQMgCQ7ClxTRjZGua4i3HknrxH6dJd6Vl9Zatn95MQPJk9Kq77C175zIFPxsrGgeTVwhCSaD/AQ8RM3Bj2OyYz+A5vG7oDeEHgTp8OfMYM8Dh6PD+3O/cKRv5MkQZuYqNRIbyc=
