@@ -22,8 +22,8 @@ jobs:
         - npm run build
       deploy:
         provider: netlify
-        site: monitor-truck-client
+        site: 4fd09da1-6598-4356-89ab-a910265f1cff
         auth: $NETLIFY_ACCESS_TOKEN
         edge: true # opt in to dpl v2 
-        dir: "build/"
+        dir: "./build"
         prod: true
