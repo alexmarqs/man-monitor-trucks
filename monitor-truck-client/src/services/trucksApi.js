@@ -1,6 +1,7 @@
 import {API_TRUCKS} from "../configs/appConfigs";
+import axios from "axios";
 
 export const getLatestTruckPositionsBy = (licensePlate) => {
-  return fetch(API_TRUCKS + "/" + licensePlate + "/latestPositions");
+  return axios.get(API_TRUCKS + "/" + licensePlate + "/latestPositions");
 }
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
 import {MAP_STYLES, MAP_ZOOM, INIT_MAP_COORDS, OPTIONS_POI}  from '../utils/mapUtils';
 import {GOOGLE_MAPS_API_KEY} from '../configs/appConfigs';
@@ -19,46 +19,51 @@ function TrucksMap(props) {
   const [latestPositions, setLatestPositions] = useState([]);
   const [lastTruckPosition, setLastTruckPosition] = useState({});
   const [error, setError] = useState(null);
+  const [searchFilter, setSearchFilter] = useState({});
   const mapRef = React.useRef(null);
   const {google} = props;
 
-  const handleSearch = async(searchFilter) => {
-    setError(null);
-    setNearPlaces([]); 
+  useEffect(() => {
+    const updateDataMap = async () => {
+      setError(null);
+      setNearPlaces([]); 
 
-    let currentLocation;
-    try {
-      const response = await getLatestTruckPositionsBy(searchFilter.licensePlate);
-      const data = await response.json();
-      if (response.ok) {
+      let currentLocation;
+    
+      try {
+        const response = await getLatestTruckPositionsBy(searchFilter.licensePlate);    
         currentLocation = {
-          lat: data[0].location.lat,
-          lng: data[0].location.lng,
+          lat: response.data[0].location.lat,
+          lng: response.data[0].location.lng,
         }
-        setLatestPositions(data);
+        setLatestPositions(response.data);
         setLastTruckPosition(currentLocation);
-      } else {
-        throw new Error(data.message);
+      } catch(error) {
+        setError("Error when invoking Monitor Trucks API: "
+         + ((error.response && error.response.data) ? error.response.data.message : error.message));
+        return;
       }
-    } catch(error) {
-      setError("Error when invoking Monitor Trucks API: " + error.message);
-      return;
+
+      try {
+        // using promise all due to view all option 
+        const results = await Promise.all(searchFilter.poiType.map(async(type) => {
+          const request = buildRequestToGooglePlacesAPI(currentLocation,[type], searchFilter.radius, google.maps.places.RankBy.DISTANCE);
+          const result = await searchNearby(google, mapRef.current.map, request);
+          return result;
+        }));
+        const nearPois = [].concat(...results);
+        setNearPlaces(nearPois);
+      } catch (error) {
+        setError("Error when invoking Google Places API: " + error);
+      }  
     }
 
-    try { 
-      // using promise all due to view all option 
-      const results = await Promise.all(searchFilter.poiType.map(async(type) => {
-        const request = buildRequestToGooglePlacesAPI(currentLocation,[type], searchFilter.radius, google.maps.places.RankBy.DISTANCE);
-        const result = await searchNearby(google, mapRef.current.map, request);
-        return result;
-      }));
-      const nearPois = [].concat(...results);
-      setNearPlaces(nearPois);
-    } catch (error) {
-      setError("Error when invoking Google Places API: " + error);
-    } 
-  }
-
+    if (Object.keys(searchFilter).length !== 0) {
+      updateDataMap();
+    }
+    
+  }, [searchFilter, google]);
+  
   const renderTruckMarkers = () => {
     return latestPositions.map((pos, index) => 
        <Marker key={pos.id} position={{lat: pos.location.lat, lng: pos.location.lng}} 
@@ -87,7 +92,7 @@ function TrucksMap(props) {
         {renderTruckMarkers()}
         {renderPoiMarkers()}
       </Map>
-      <SearchBar onSearch={handleSearch}></SearchBar>
+      <SearchBar onSearch={(search) => setSearchFilter(search)}></SearchBar>
       {error && <Notification errorMsg={error} onClose={() => setError(null)}></Notification>}
     </div>
   );  

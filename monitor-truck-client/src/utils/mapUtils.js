@@ -21,7 +21,7 @@ export const OPTIONS_RADIUS = [
   { label: "No radius", value: null},
   { label: "100 m", value: "100" },
   { label: "300 m", value: "300" },
-  { label: "800 m", value: "800" }
+  { label: "1 km", value: "1000" }
 ];  
 
 export const buildRequestToGooglePlacesAPI = (latestPosition, poiType, radius, rankByDistance) => {
