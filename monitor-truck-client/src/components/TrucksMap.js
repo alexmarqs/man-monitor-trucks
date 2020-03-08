@@ -19,6 +19,7 @@ function TrucksMap(props) {
   const [latestPositions, setLatestPositions] = useState([]);
   const [lastTruckPosition, setLastTruckPosition] = useState({});
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [searchFilter, setSearchFilter] = useState({});
   const mapRef = React.useRef(null);
   const {google} = props;
@@ -26,8 +27,8 @@ function TrucksMap(props) {
   useEffect(() => {
     const updateDataMap = async () => {
       setError(null);
-      setNearPlaces([]); 
-
+      setLoading(true);
+      
       let currentLocation;
     
       try {
@@ -41,6 +42,7 @@ function TrucksMap(props) {
       } catch(error) {
         setError("Error when invoking Monitor Trucks API: "
          + ((error.response && error.response.data) ? error.response.data.message : error.message));
+        setLoading(false);
         return;
       }
 
@@ -55,7 +57,8 @@ function TrucksMap(props) {
         setNearPlaces(nearPois);
       } catch (error) {
         setError("Error when invoking Google Places API: " + error);
-      }  
+      } 
+      setLoading(false); 
     }
 
     if (Object.keys(searchFilter).length !== 0) {
@@ -92,7 +95,7 @@ function TrucksMap(props) {
         {renderTruckMarkers()}
         {renderPoiMarkers()}
       </Map>
-      <SearchBar onSearch={(search) => setSearchFilter(search)}></SearchBar>
+      <SearchBar isLoading={loading} onSearch={(search) => setSearchFilter(search)}></SearchBar>
       {error && <Notification errorMsg={error} onClose={() => setError(null)}></Notification>}
     </div>
   );  

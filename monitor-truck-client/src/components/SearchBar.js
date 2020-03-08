@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Dropdown from './Dropdown';
 import {OPTIONS_POI, OPTIONS_RADIUS} from '../utils/mapUtils';
 
-function SearchBar( {onSearch} ) {
+function SearchBar( {isLoading, onSearch} ) {
   const [searchLicensePlace, setSearchLicensePlace] = useState("");
   const [selectedPoi, setSelectedPoi] = useState(-1);
   const [selectedRadius, setSelectedRadius] = useState(-1);
@@ -40,7 +40,9 @@ function SearchBar( {onSearch} ) {
           <Dropdown value={selectedRadius} onSelect={(val) => setSelectedRadius(val)} placeHolder="Select radius" options={OPTIONS_RADIUS}></Dropdown>
         </div>
         <div className="md:flex-shrink self-end mt-2 mt-1">
-          <button className="btn-field">Apply</button>
+          <button className={"btn-field " + (isLoading ? "opacity-50 cursor-not-allowed" : "")}>
+            {isLoading ? "Loading" : "Apply"}
+          </button>
         </div>
       </div>
       {invalid && <div className="invalid-search">*Please fill the required fields</div>}
@@ -49,6 +51,7 @@ function SearchBar( {onSearch} ) {
 }
 
 SearchBar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   onSearch: PropTypes.func.isRequired
 }
 

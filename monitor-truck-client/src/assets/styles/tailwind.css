@@ -29,7 +29,7 @@ input:focus, button:focus {
 }
 
 .form-search {
-  @apply z-1 m-4 absolute bg-white shadow-md px-8 pt-6 pb-6;
+  @apply z-1 m-2 absolute bg-white shadow-md px-8 pt-6 pb-6;
 }
 
 .invalid-search {
