@@ -32,7 +32,7 @@ For the database, I use the original mongodb docker image. All the information f
 Note: *If you prefer not to use docker, you can manually build and generate the executable file with `mvn clean package` and then run the maven spring boot plugin (`mvn spring-boot:run`) or directly the java command `java -jar <jar file location>`. Do not forget to set the required environment variables. You must be running an instance of MongoDB server.*
 
 ### CI/CD + Live Demo
-For continuous integration / deployment, I use the tool Travis CI. Since I am using only one git repository for frontend and backend, I configured two stages, one to run frontend tests and deploy the build on Netlify and the other to run the backend tests (an embedded mongo database - flapdoodle is used) and deploy the artifact on Heroku. For the database, I use MongoDB Atlas. For real world applications, I suggest a separate git repository for each project.
+For continuous integration / deployment, I use the tool [Travis CI](https://travis-ci.org). Since I am using only one git repository for frontend and backend, I configured two stages, one to run frontend tests and deploy the build on [Netlify](https://www.netlify.com/) and the other to run the backend tests (an embedded mongo database - flapdoodle is used) and deploy the artifact on [Heroku](https://www.heroku.com/). For the database, I use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). For real world applications, I suggest a separate git repository for each project.
 
 Check the live demo at https://monitor-truck-client.netlify.com/ 
 
