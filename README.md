@@ -38,7 +38,11 @@ Check the live demo at https://monitor-truck-client.netlify.com/
 
 Note: *For test purposes I added to my database some data related with the license plate "LI-2" - If you want more please let me know.*
 
-
+### Screenshots
+*Desktop:*
+![Desktop](/screenshots/screenshot_desktop.png)
+*Tablet/Mobile:*
+![Mobile](/screenshots/screenshot_tablet_mobile.png)
 
 
 
