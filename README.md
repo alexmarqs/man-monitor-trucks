@@ -42,9 +42,7 @@ Note: *For test purposes I added to my database some data related with the licen
 *Desktop:*
 ![Desktop](/screenshots/screenshot_desktop.png)
 *Tablet/Mobile:*
-![Mobile](/screenshots/screenshot_tablet_mobile.png){:height="36px" width="36px"}
-
-
+![Mobile](/screenshots/screenshot_tablet_mobile.png)
 
 
 
