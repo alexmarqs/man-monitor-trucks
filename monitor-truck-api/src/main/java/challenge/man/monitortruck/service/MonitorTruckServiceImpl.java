@@ -7,7 +7,6 @@ import challenge.man.monitortruck.mapper.TruckLocationHistoryMapper;
 import challenge.man.monitortruck.model.TruckLocationHistory;
 import challenge.man.monitortruck.repository.TruckLocationHistoryRepository;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -17,26 +16,28 @@ import java.util.List;
 /**
  * The type Monitor truck service (implementation).
  */
-@Service
 public class MonitorTruckServiceImpl implements MonitorTruckService {
 
     /**
      * The Logger.
      */
-    @Autowired
-    private Logger logger;
+    private final Logger logger;
 
     /**
      * The Truck location history repository.
      */
-    @Autowired
-    private TruckLocationHistoryRepository truckLocationHistoryRepository;
+    private final TruckLocationHistoryRepository truckLocationHistoryRepository;
 
     /**
-     * The Truck location history mapper.
+     * Instantiates a new Monitor truck service.
+     *
+     * @param logger                         the logger
+     * @param truckLocationHistoryRepository the truck location history repository
      */
-    @Autowired
-    private TruckLocationHistoryMapper truckLocationHistoryMapper;
+    public MonitorTruckServiceImpl(Logger logger, TruckLocationHistoryRepository truckLocationHistoryRepository) {
+        this.logger = logger;
+        this.truckLocationHistoryRepository = truckLocationHistoryRepository;
+    }
 
     @Override
     public List<TruckLocationHistoryDto> getLatestPositionsByLicensePlate(String licensePlate, int maxPos) {
@@ -52,7 +53,7 @@ public class MonitorTruckServiceImpl implements MonitorTruckService {
 
         logger.debug("{} records were loaded from the database", truckLocationHistoryList.size());
 
-        return truckLocationHistoryMapper.toDtoList(truckLocationHistoryList);
+        return new TruckLocationHistoryMapper().toDtoList(truckLocationHistoryList);
     }
 
 }

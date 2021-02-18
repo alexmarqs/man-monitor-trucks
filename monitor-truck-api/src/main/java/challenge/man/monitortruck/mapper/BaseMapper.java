@@ -34,7 +34,7 @@ public abstract class BaseMapper<E, D> {
      * @return the dto list
      */
     public List<D> toDtoList (List<E> entityList) {
-        return entityList.stream().map(e -> toDto(e)).collect(Collectors.toList());
+        return entityList.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class BaseMapper<E, D> {
      * @return the entity list
      */
     public List<E> toEntityList (List<D> dtoList) {
-        return dtoList.stream().map(d -> toEntity(d)).collect(Collectors.toList());
+        return dtoList.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
 }

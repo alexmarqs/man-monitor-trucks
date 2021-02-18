@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.hibernate.validator.constraints.Range;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +30,23 @@ public class MonitorTruckController {
     /**
      * The Logger.
      */
-    @Autowired
-    private Logger logger;
+    private final Logger logger;
 
     /**
      * The Monitor truck service.
      */
-    @Autowired
-    private MonitorTruckService monitorTruckService;
+    private final MonitorTruckService monitorTruckService;
+
+    /**
+     * Instantiates a new Monitor truck controller.
+     *
+     * @param logger              the logger
+     * @param monitorTruckService the monitor truck service
+     */
+    public MonitorTruckController(Logger logger, MonitorTruckService monitorTruckService) {
+        this.logger = logger;
+        this.monitorTruckService = monitorTruckService;
+    }
 
     /**
      * Gets latest positions by license plate.
